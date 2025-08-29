@@ -15,4 +15,8 @@ npm install
 cp .env-example .env
 ```
 
-### Configuración en Postman"# token-service" 
+### Configuración en Postman"# token-service"
+### Crear una request para generar token
+Method: POST
+URL: http://localhost:3001/api/tokens/generate
+#### Headers
