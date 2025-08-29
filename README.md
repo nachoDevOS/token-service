@@ -17,6 +17,19 @@ cp .env-example .env
 
 ### Configuración en Postman"# token-service"
 ### Crear una request para generar token
-Method: POST
-URL: http://localhost:3001/api/tokens/generate
+#### Configuración
+- Method: POST
+- URL: http://localhost:3001/api/tokens/generate
 #### Headers
+- Key: Content-Type → Value: application/json
+#### Body: (Seleccionar "raw" y "JSON")
+```sh
+{
+    "systemId": "sistema1", 
+    "microservice": "auth-service",
+    "payload": {
+        "userId": "123",
+        "role": "admin"
+    }
+}
+```
