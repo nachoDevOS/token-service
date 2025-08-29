@@ -15,7 +15,7 @@ npm install
 cp .env-example .env
 ```
 
-### Configuración en Postman"# token-service"
+## Configuración en Postman"# token-service"
 ### Crear una request para generar token
 #### Configuración
 - Method: POST
@@ -33,3 +33,23 @@ cp .env-example .env
     }
 }
 ```
+
+### Crear request para validar token
+- Nueva request: "Validate Token"
+- Method: GET
+- URL: http://localhost:3001/api/tokens/validate
+#### Headers
+- Key: Authorization → Value: Bearer {{token}}
+- Key: Content-Type → Value: application/json
+
+### Request para invalidar token
+- Nueva request: "Invalidate Token"
+- Method: POST
+- URL: http://localhost:3001/api/tokens/invalidate
+#### Headers
+- Key: Authorization → Value: Bearer {{token}}
+
+### Request para obtener tokens válidos
+- Nueva request: "Get Valid Tokens"
+- Method: GET
+- URL: http://localhost:3001/api/tokens/valid-tokens?systemId=sistema1
