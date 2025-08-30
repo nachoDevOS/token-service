@@ -1,4 +1,7 @@
 const express = require('express');
+const http = require('http');
+const https = require('https');
+const fs = require('fs');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const { connectDatabases } = require('./config/database');
@@ -10,7 +13,10 @@ const tokenRoutes = require('./routes/tokenRoutes');
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.APP_PORT || 4001;
+const ENV = process.env.APP_ENV;
+const DOMAIN = process.env.APP_DOMAIN;
+const NAME = process.env.APP_NAME;
 
 // Middleware
 app.use(cors());
@@ -26,8 +32,8 @@ app.get('/health', (req, res) => {
 
 // Ruta de prueba básica
 app.get('/', (req, res) => {
-  res.json({ 
-    message: 'Token Service API', 
+  res.json({
+    message: 'Token Service API',
     endpoints: {
       generate: 'POST /api/tokens/generate',
       validate: 'GET /api/tokens/validate',
@@ -37,18 +43,29 @@ app.get('/', (req, res) => {
   });
 });
 
+// Inicializar el servidor según el entorno
+const server = ENV === 'production'
+  ? https.createServer({
+      key: fs.readFileSync(`/etc/letsencrypt/live/${DOMAIN}/privkey.pem`),
+      cert: fs.readFileSync(`/etc/letsencrypt/live/${DOMAIN}/fullchain.pem`)
+    }, app)
+  : http.createServer(app);
+
 // Inicializar bases de datos y servicios
 async function startServer() {
   try {
     console.log('Connecting to databases...');
     await connectDatabases();
-    
+
     console.log('Initializing sync service...');
     initializeSyncService();
 
-    app.listen(PORT, () => {
-      console.log(`✅ Token Service running on port ${PORT}`);
-      console.log(`📍 Health check: http://localhost:${PORT}/health`);
+    server.listen(PORT, () => {
+      const protocol = ENV === 'production' ? 'HTTPS' : 'HTTP';
+      console.log(`✅ ${NAME} (${protocol}) running on port ${PORT}`);
+      if (ENV !== 'production') {
+        console.log(`📍 Health check: http://localhost:${PORT}/health`);
+      }
     });
   } catch (error) {
     console.error('❌ Failed to start server:', error);

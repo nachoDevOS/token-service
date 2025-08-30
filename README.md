@@ -23,6 +23,21 @@ redis-server --version
 ## Config
 ```sh
 cp .env-example .env
+
+# Edit environment variables
+APP_NAME="Token-Api"
+APP_ENV="development" # prod for "production" environment
+APP_DOMAIN=example.com # your domain without http or https (example.com)
+APP_PORT=3001 # your port
+
+MYSQL_HOST=localhost
+MYSQL_PORT=3306
+MYSQL_USER=root
+MYSQL_PASSWORD=
+MYSQL_DATABASE=token_service
+
+REDIS_URL=redis://localhost:6379
+JWT_SECRET=VPHIvIyQFltKMFP41JVDtW4rfp1g1eOZcGBCQC693JiFFMPZEFtmKLAYlIfhTISK
 ```
 
 ## Configuración en Postman"# token-service"
