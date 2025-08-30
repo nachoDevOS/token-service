@@ -87,7 +87,7 @@ server {
     server_name tu-dominio.com www.tu-dominio.com;
 
     location / {
-        proxy_pass http://localhost:3000;  # Puerto de tu app Node.js
+        proxy_pass https://localhost:3000;  # Puerto de tu app Node.js  CAMBIO CLAVE: Usar HTTPS
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
