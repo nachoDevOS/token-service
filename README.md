@@ -78,3 +78,24 @@ JWT_SECRET=VPHIvIyQFltKMFP41JVDtW4rfp1g1eOZcGBCQC693JiFFMPZEFtmKLAYlIfhTISK
 - Nueva request: "Get Valid Tokens"
 - Method: GET
 - URL: http://localhost:3001/api/tokens/valid-tokens?systemId=sistema1
+
+
+## Contenido típico para Node.js (ejemplo): Enlace simbolico sites-available
+```sh
+server {
+    listen 80;
+    server_name tu-dominio.com www.tu-dominio.com;
+
+    location / {
+        proxy_pass http://localhost:3000;  # Puerto de tu app Node.js
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
