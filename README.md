@@ -4,11 +4,21 @@
 
 ## Requesitos
 - Nodejs >= 22
-- Descarga la última versión (ej: Redis-x64-3.0.504.msi)
+- Redis >= 6.0.16
 
 ## Install
 ```sh
 npm install
+
+# Actualizar la lista de paquetes
+sudo apt update
+
+# Instalar Redis
+sudo apt install redis-server
+
+# Verificar la instalación
+redis-server --version
+```
 
 ## Config
 ```sh

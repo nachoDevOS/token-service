@@ -11,10 +11,11 @@ class TokenService {
   async generateWeeklyToken(systemId, microservice, payload = {}) {
     try {
       const expiresAt = new Date();
-      expiresAt.setDate(expiresAt.getDate() + 7); // 1 semana
+      // expiresAt.setDate(expiresAt.getDate() + 7); // 1 semana
+      expiresAt.setDate(expiresAt.getDate()); // solo para el dia
 
       const tokenPayload = {
-        ...payload,
+        // ...payload,
         systemId,
         microservice,
         exp: Math.floor(expiresAt.getTime() / 1000)
