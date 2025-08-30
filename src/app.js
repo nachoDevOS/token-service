@@ -12,8 +12,9 @@ const tokenRoutes = require('./routes/tokenRoutes');
 
 dotenv.config();
 
+
 const app = express();
-const PORT = process.env.APP_PORT || 3000;
+const PORT = process.env.APP_PORT;
 const ENV = process.env.NODE_ENV;
 const DOMAIN = process.env.APP_DOMAIN;
 const NAME = process.env.APP_NAME;

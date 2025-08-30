@@ -1,14 +1,16 @@
 const { Sequelize } = require('sequelize');
 const redis = require('redis');
 
+require('dotenv').config();
+
 // Configuración de MySQL
 const sequelize = new Sequelize(
-  process.env.MYSQL_DATABASE || 'token_service',
-  process.env.MYSQL_USER || 'root',
-  process.env.MYSQL_PASSWORD || '',
+  process.env.MYSQL_DATABASE,
+  process.env.MYSQL_USER,
+  process.env.MYSQL_PASSWORD,
   {
-    host: process.env.MYSQL_HOST || 'localhost',
-    port: process.env.MYSQL_PORT || 3306,
+    host: process.env.MYSQL_HOST,
+    port: process.env.MYSQL_PORT,
     dialect: 'mysql',
     logging: process.env.NODE_ENV === 'development' ? console.log : false,
     pool: {
@@ -22,7 +24,7 @@ const sequelize = new Sequelize(
 
 // Configuración de Redis
 const redisClient = redis.createClient({
-  url: process.env.REDIS_URL || 'redis://localhost:6379'
+  url: process.env.REDIS_URL
 });
 
 redisClient.on('error', (err) => console.log('❌ Redis Client Error', err));
