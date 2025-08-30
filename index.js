@@ -4,11 +4,11 @@ const https = require('https');
 const fs = require('fs');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const { connectDatabases } = require('./config/database');
-const { initializeSyncService } = require('./services/syncService');
+const { connectDatabases } = require('./src/config/database');
+const { initializeSyncService } = require('./src/services/syncService');
 
 // Importar rutas
-const tokenRoutes = require('./routes/tokenRoutes');
+const tokenRoutes = require('./src/routes/tokenRoutes');
 
 dotenv.config();
 
